@@ -1,9 +1,6 @@
 package com.example.model;
 
 import java.util.List;
-
-//import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +17,6 @@ public class Country implements Comparable<Country> {
     private String capital;
     private String currency;
     private List<String> languages;
-    private List<Byte> flag;
 
     @Override
     public int compareTo(Country o) {
