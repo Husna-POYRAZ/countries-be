@@ -1,7 +1,9 @@
 package com.example.controller;
+import com.example.model.Country;
+import com.example.utils.FileOperation;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -12,15 +14,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.model.Country;
-import com.example.utils.FileOperation;
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 
 
 @CrossOrigin
@@ -60,13 +56,7 @@ public class CountriesController {
         }
     }
 
-
     @GetMapping
-    public List<Country> getAllCountries() throws StreamReadException, DatabindException {
-        return countries;
-    }
-
-    @GetMapping("/params")
     public List<Country> getCountriesByParams(@RequestParam(value = "id", defaultValue = "") String id,
                                            @RequestParam(value = "name", defaultValue = "") String name,
                                            @RequestParam(value = "continent", defaultValue = "") String continent,
@@ -78,24 +68,14 @@ public class CountriesController {
         queriedCountries = continent.isEmpty() ? queriedCountries : queriedCountries.stream().filter(f->f.getContinent().equals(continent)).collect(Collectors.toList());
         queriedCountries = currency.isEmpty() ? queriedCountries : queriedCountries.stream().filter(f->f.getCurrency().equals(currency)).collect(Collectors.toList());
         queriedCountries = phoneCode.isEmpty() ? queriedCountries : queriedCountries.stream().filter(f->f.getPhoneCode() == Integer.parseInt(phoneCode)).collect(Collectors.toList());
-        queriedCountries = orderBy.isEmpty() || orderBy.equals("asc") ? queriedCountries.stream().sorted(Comparator.comparingInt(Country::getPhoneCode))
-                                                                        .collect(Collectors.toList()) : queriedCountries.stream()
+        queriedCountries = (orderBy.isEmpty() || orderBy.equals("asc")) ? queriedCountries.stream().sorted(Comparator.comparingInt(Country::getPhoneCode))
+                                                                        .collect(Collectors.toList()) : orderBy.equals("desc") ? (queriedCountries.stream()
                                                                         .sorted(Comparator.comparingInt(Country::getPhoneCode).reversed())
-                                                                        .collect(Collectors.toList());
-
+                                                                        .collect(Collectors.toList())): queriedCountries;
 
         return queriedCountries;
-
     }
     
- /*   
-    @GetMapping
-    public List<Country> getCountryByParams(@RequestParam(value="id", defaultValue = "") Optional<String> id) {
-        if(id.isPresent()){
-            List<Country> filteredByCountryCode = countries.stream().filter(country -> country.getId().equals(id)).collect(Collectors.toList());
-            return  filteredByCountryCode;
-        }  
-        return countries;
-    }
- */ 
 }
+
+
