@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Country implements Comparable<Country> {
+public class Country {
     private String id;
     private String name;
     private String nativeName;
@@ -17,12 +17,5 @@ public class Country implements Comparable<Country> {
     private String capital;
     private String currency;
     private List<String> languages;
-
-    @Override
-    public int compareTo(Country o) {
-        int phoneCode = ((Country)o).phoneCode;
-        //Ascending order
-        return this.phoneCode - phoneCode;
-    }
     
 }
