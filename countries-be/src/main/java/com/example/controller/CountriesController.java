@@ -3,12 +3,10 @@ import com.example.model.Country;
 import com.example.utils.FileOperation;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,7 +27,7 @@ public class CountriesController {
 
     public CountriesController() {
         try {
-            countriesMap = FileOperation.readJsonFile("/Users/hp/development/country/countries-be/countries-be/src/asset/countries.json");
+            countriesMap = FileOperation.readJsonFile("./asset/countries.json");
             // create Country obje
             // get all country codes
             Set<String> keySet = countriesMap.keySet();
