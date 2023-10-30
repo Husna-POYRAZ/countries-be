@@ -1,6 +1,7 @@
 package com.hpoyraz.countriesbe.service.imp;
 
 import com.hpoyraz.countriesbe.entity.Country;
+import com.hpoyraz.countriesbe.initializer.CountryInitializer;
 import com.hpoyraz.countriesbe.repository.ICountryRepository;
 import com.hpoyraz.countriesbe.service.interfaces.ICountryService;
 import lombok.RequiredArgsConstructor;
@@ -17,5 +18,10 @@ public class CountryService implements ICountryService {
     @Override
     public List<Country> getAllCountries() {
         return countryRepository.findAll();
+    }
+
+    @Override
+    public List<Country> insertAllCountries() {
+        return countryRepository.saveAll(CountryInitializer.readCountries());
     }
 }
