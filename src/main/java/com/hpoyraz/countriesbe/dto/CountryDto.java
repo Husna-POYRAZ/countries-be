@@ -1,23 +1,14 @@
-package com.hpoyraz.countriesbe.entity;
+package com.hpoyraz.countriesbe.dto;
 
 import lombok.*;
 
-import javax.persistence.*;
-
-@Entity
-@Table
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Country {
-    @Id
-    @GeneratedValue
-    @Column(unique = true)
+public class CountryDto  {
     private Long  id;
-
-    @Column(unique = true)
     private String code;
     private String name;
     private String nativeName;
@@ -27,5 +18,4 @@ public class Country {
     private String currency;
     private String languages;
     private String flag;
-    //private List<Language> languages;
 }
